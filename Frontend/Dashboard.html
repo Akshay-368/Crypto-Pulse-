@@ -1,13 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Dashboard</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    
+<div class="dashboard">
+    <header class="header">
+    <h1>CRYPTO DASHBOARD</h1>
+    <select class="coin-selector">
+        <option value="dogecoin">Dogecoin</option>
+        <option value="bitcoin">Bitcoin</option>
+        <option value="ethereum">Ethereum</option>
+    </select>
+    </header>
+    <h2>Dogecoin</h2>
+
+    <main class="content">
+    <section class="summary">
+        <div class="card">
+        <p>Market Cap 24hrs</p>
+        <h2>2.92065 %</h2>
+        </div>
+        <div class="card">
+        <p>All Time High</p>
+        <h2>$0.731578</h2>
+        </div>
+        <div class="card">
+        <p>Positive Sentiments</p>
+        <h2>61.44 %</h2>
+        </div>
+        <div class="card">
+        <p>High 24hrs</p>
+        <h2 class="positive">$0.120256</h2>
+        </div>
+        <div class="card">
+        <p>Low 24hrs</p>
+        <h2 class="negative">$0.1146</h2>
+        </div>
+    </section>
+
+    <section class="current Price">
+        <h2>Current Price</h2>
+        <h1>$0.119262</h1>
+    </section>
+
+    <section class="charts">
+        <div class="chart">
+        <h3>Market Price (USD)</h3>
+        <div class="placeholder">Chart Placeholder</div>
+        </div>
+        <div class="chart">
+        <h3>Market Cap (USD)</h3>
+        <div class="placeholder">Chart Placeholder</div>
+        </div>
+    </section>
+    </main>
+</div>
 </body>
 </html>

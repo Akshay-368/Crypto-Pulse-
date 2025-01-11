@@ -1,0 +1,61 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #121212;
+    color: #ffffff;
+}
+.dashboard {
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0099cc;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+.header h1 {
+    margin: 0;
+}
+h2{
+    
+}
+
+.coin-selector {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+}
+  /* Summary Section */
+.summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 20px 0;
+}
+.card {
+    background-color: #1f1f1f;
+    padding: 15px;
+    border-radius: 8px;
+    flex: 1;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.card p {
+    margin: 0;
+    font-size: 14px;
+}
+.card h2 {
+    margin: 10px 0 0;
+    font-size: 18px;
+}
+.card .positive {
+    color: #00ff00;
+}
+.card .negative {
+    color: #ff0000;
+}
+
