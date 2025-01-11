@@ -59,14 +59,27 @@ body {
     color: #ff0000;
 }
 
+.current-price {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.current-price h1 {
+    font-size: 36px;
+    color: #00e5ff;
+}
+
 .text{
     position: relative;
     height: 200px;
     width: 100px;
 }
 .cardd{
+    
     display: flex;
 }
 .card-area{
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
