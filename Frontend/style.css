@@ -34,9 +34,11 @@ body {
 }
 .card {
     background-color: #1f1f1f;
+    width: 400px;
     padding: 15px;
     border-radius: 8px;
-    flex: 1;
+    margin-left: 40px;
+    /* flex: 1; */
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -57,3 +59,14 @@ body {
     color: #ff0000;
 }
 
+.text{
+    position: relative;
+    height: 200px;
+    width: 100px;
+}
+.cardd{
+    display: flex;
+}
+.card-area{
+    display: flex;
+}
