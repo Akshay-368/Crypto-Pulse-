@@ -1,71 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crypto Dashboard</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crypto Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-900 text-white font-sans">
+    <div class="p-6">
+      <header
+        class="flex flex-col sm:flex-row justify-between items-center bg-cyan-600 p-4 rounded-lg"
+      >
+        <h1 class="text-2xl font-bold">CRYPTO DASHBOARD</h1>
+        <select class="mt-2 sm:mt-0 p-2 rounded bg-gray-800 text-white">
+          <option value="dogecoin">Dogecoin</option>
+          <option value="bitcoin">Bitcoin</option>
+          <option value="ethereum">Ethereum</option>
+        </select>
+      </header>
 
-<div class="dashboard">
-    <header class="header">
-    <h1>CRYPTO DASHBOARD</h1>
-    <select class="coin-selector">
-        <option value="dogecoin">Dogecoin</option>
-        <option value="bitcoin">Bitcoin</option>
-        <option value="ethereum">Ethereum</option>
-    </select>
-    </header>
-    <h2>Dogecoin</h2>
+      <main class="mt-6">
+        <h2 class="text-xl font-semibold text-center">Dogecoin</h2>
 
-    <main class="content">
-    <section class="summary">
-        <div class="card">
-        <p>Market Cap 24hrs</p>
-        <h2>2.92065 %</h2>
-        </div>
-        <div class="card">
-        <p>All Time High</p>
-        <h2>$0.731578</h2>
-        </div>
-        <div class="card">
-        <p>Positive Sentiments</p>
-        <h2>61.44 %</h2>
-        </div>
-        <div class="card">
-        <p>High 24hrs</p>
-        <h2 class="positive">$0.120256</h2>
-        </div>
-        <div class="card">
-        <p>Low 24hrs</p>
-        <h2 class="negative">$0.1146</h2>
-        </div>
-    </section>
-    
-        <div class="info">
-            <section class="current-price">
-                <h2>Current Price</h2>
-                <h1>$0.119262</h1>
-            </section>    
-            
-        </div>
-        <div class="card-area">
-            <div class="card">
-                <div class="text">
-                    <h3>Market Price</h3>
-                </div>
-            </div>
-            <div class="card">
-                <div class="text">
-                    <h3>Market Cap</h3>
-                </div>
-            </div>
-        </div>
-        
+        <section class="flex flex-wrap gap-4 mt-4">
+          <div
+            class="bg-gray-800 p-4 rounded-lg flex-1 min-w-[280px] text-center"
+          >
+            <p>Market Cap 24hrs</p>
+            <h2 class="text-lg font-bold">2.92065 %</h2>
+          </div>
+          <div
+            class="bg-gray-800 p-4 rounded-lg flex-1 min-w-[280px] text-center"
+          >
+            <p>All Time High</p>
+            <h2 class="text-lg font-bold">$0.731578</h2>
+          </div>
+          <div
+            class="bg-gray-800 p-4 rounded-lg flex-1 min-w-[280px] text-center"
+          >
+            <p>Positive Sentiments</p>
+            <h2 class="text-lg font-bold">61.44 %</h2>
+          </div>
+          <div
+            class="bg-gray-800 p-4 rounded-lg flex-1 min-w-[280px] text-center"
+          >
+            <p>High 24hrs</p>
+            <h2 class="text-lg font-bold text-green-500">$0.120256</h2>
+          </div>
+          <div
+            class="bg-gray-800 p-4 rounded-lg flex-1 min-w-[280px] text-center"
+          >
+            <p>Low 24hrs</p>
+            <h2 class="text-lg font-bold text-red-500">$0.1146</h2>
+          </div>
+        </section>
 
-       
-    </main>
-</div>
-</body>
+        <section class="text-center mt-6">
+          <h2 class="text-xl font-semibold">Current Price</h2>
+          <h1 class="text-4xl font-bold text-cyan-400">$0.119262</h1>
+        </section>
+
+        <div class="flex flex-wrap gap-4 justify-center mt-6">
+          <div
+            class="bg-gray-800 p-4 rounded-lg flex-1 min-w-[200px] text-center"
+          >
+            <h3 class="text-lg font-bold">Market Price</h3>
+          </div>
+          <div
+            class="bg-gray-800 p-4 rounded-lg flex-1 min-w-[200px] text-center"
+          >
+            <h3 class="text-lg font-bold">Market Cap</h3>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
 </html>
