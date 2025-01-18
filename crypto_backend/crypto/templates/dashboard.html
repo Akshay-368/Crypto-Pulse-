@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency: The Future of Finance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hero-bg {
+            background-image: url('https://builtin.com/sites/www.builtin.com/files/inline-images/inside-crypto-cryptocurrency.png');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+    <!-- Hero Section -->
+    <div class="hero-bg h-screen flex items-center justify-center">
+        <div class="text-center p-6 bg-black bg-opacity-50 rounded-lg">
+            <h1 class="text-4xl font-bold">Cryptocurrency: The Currency of the Modern World</h1>
+            <p class="mt-4 text-lg">Explore the fascinating world of digital currency and its impact on the global economy.</p>
+            <button class="mt-6 px-6 py-3 bg-cyan-600 rounded text-lg font-semibold">Get Started</button>
+            <!-- Haven't thought out where should the button take the user next , so left here as a placeholder
+            for future reference to do required adjustemnet -->
+        </div>
+    </div>
+
+    <!-- About Cryptocurrency Section -->
+    <section class="p-6">
+        <h2 class="text-3xl font-bold text-center">What is Cryptocurrency?</h2>
+        <p class="mt-4 text-center max-w-4xl mx-auto">
+            Cryptocurrency is a digital or virtual form of money that uses cryptography for security. Unlike traditional currencies, cryptocurrencies operate on decentralized technology called blockchain, ensuring transparency and immutability.
+        </p>
+    </section>
+
+    <!-- Advantages and Disadvantages Section -->
+    <section class="p-6 bg-gray-800">
+        <h2 class="text-3xl font-bold text-center">Advantages and Disadvantages</h2>
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-4 bg-gray-700 rounded-lg">
+                <h3 class="text-xl font-semibold">Advantages</h3>
+                <ul class="list-disc pl-6 mt-2">
+                    <li>Decentralized and secure</li>
+                    <li>Global accessibility</li>
+                    <li>Low transaction fees</li>
+                    <li>Potential for high returns</li>
+                </ul>
+            </div>
+            <div class="p-4 bg-gray-700 rounded-lg">
+                <h3 class="text-xl font-semibold">Disadvantages</h3>
+                <ul class="list-disc pl-6 mt-2">
+                    <li>Market volatility</li>
+                    <li>Regulatory concerns</li>
+                    <li>Security risks and scams</li>
+                    <li>Lack of widespread acceptance</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quotes Section -->
+    <section class="p-6">
+        <h2 class="text-3xl font-bold text-center">Popular Quotes on Cryptocurrency</h2>
+        <div class="mt-6 flex flex-wrap justify-center gap-6">
+            <blockquote class="p-4 bg-gray-800 rounded-lg text-center">
+                <p class="text-lg italic">"Bitcoin is the most important invention in the history of the world since the internet." - Roger Ver</p>
+            </blockquote>
+            <blockquote class="p-4 bg-gray-800 rounded-lg text-center">
+                <p class="text-lg italic">"Cryptocurrency is such a powerful concept that it can almost overturn governments." - Charles Lee</p>
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- Interactive Section -->
+    <section class="p-6 bg-gray-800">
+        <h2 class="text-3xl font-bold text-center">Let's figure out the current evaluation of cryptocurrencies</h2>
+        <div class="mt-6 flex justify-center">
+            <form method="GET" action="{% url 'crypto_view' %}" class="flex items-center space-x-2">
+                <input type="text" name="search" placeholder="Search coin..." class="p-2 rounded bg-gray-700 text-white" />
+                <button type="submit" class="p-2 rounded bg-cyan-600 text-white">Search</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <main class="mt-6">
+        <h2 class="text-xl font-semibold text-center">Cryptocurrency Market</h2>
+
+        <section class="flex flex-wrap gap-6 mt-6 justify-center">
+            {% if crypto_data %}
+                {% for coin in crypto_data %}
+                    <!-- Coin Card -->
+                    <div class="bg-gray-800 p-6 rounded-lg max-w-sm w-full text-center shadow-lg transform hover:scale-105 transition-transform duration-300">
+                        <img src="{{ coin.image }}" alt="{{ coin.name }}" class="w-24 h-24 mx-auto mb-4 rounded-full">
+                        <h2 class="text-lg font-bold">{{ coin.name }} ({{ coin.symbol.upper }})</h2>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-400">Current Price:</p>
+                            <p class="text-xl font-bold text-green-400">${{ coin.current_price }}</p>
+                        </div>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-400">Market Cap:</p>
+                            <p class="text-lg font-bold">${{ coin.market_cap }}</p>
+                        </div>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-400">Market Cap Rank:</p>
+                            <p class="text-lg font-bold">{{ coin.market_cap_rank }}</p>
+                        </div>
+                        {% if is_search %}
+                            <div class="mt-4 space-y-2">
+                                <p class="text-sm text-gray-400">High 24h: <span class="text-green-400">${{ coin.high_24h }}</span></p>
+                                <p class="text-sm text-gray-400">Low 24h: <span class="text-red-400">${{ coin.low_24h }}</span></p>
+                                <p class="text-sm text-gray-400">Price Change 24h: <span class="text-blue-400">${{ coin.price_change_24h }}</span></p>
+                                <p class="text-sm text-gray-400">Price Change % 24h: <span class="text-yellow-400">{{ coin.price_change_percentage_24h }}%</span></p>
+                                <p class="text-sm text-gray-400">Market Cap Change 24h: <span class="text-blue-400">${{ coin.market_cap_change_24h }}</span></p>
+                                <p class="text-sm text-gray-400">Market Cap Change % 24h: <span class="text-yellow-400">{{ coin.market_cap_change_percentage_24h }}%</span></p>
+                                <p class="text-sm text-gray-400">Circulating Supply: <span class="text-purple-400">{{ coin.circulating_supply }}</span></p>
+                                <p class="text-sm text-gray-400">Total Supply: <span class="text-purple-400">{{ coin.total_supply }}</span></p>
+                                <p class="text-sm text-gray-400">Max Supply: <span class="text-purple-400">{{ coin.max_supply }}</span></p>
+                                <p class="text-sm text-gray-400">All Time High: <span class="text-green-400">${{ coin.ath }}</span></p>
+                                <p class="text-sm text-gray-400">All Time Low: <span class="text-red-400">${{ coin.atl }}</span></p>
+                                {% if coin.roi %}
+                                    <p class="text-sm text-gray-400">ROI: <span class="text-pink-400">{{ coin.roi.times }} times</span></p>
+                                {% endif %}
+                                <p class="text-sm text-gray-400">Last Updated: <span class="text-indigo-400">{{ coin.last_updated }}</span></p>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-center text-lg text-red-500">No data available for the searched coin.</p>
+            {% endif %}
+        </section>
+    </main>
+
+    <footer class="p-4 bg-gray-900 text-center">
+        <p>&copy; 2025 Crypto Dashboard. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
