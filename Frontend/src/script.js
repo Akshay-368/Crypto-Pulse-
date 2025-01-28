@@ -1,63 +1,144 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const spinner = document.getElementById("spinner");
-    const dashboard = document.getElementById("dashboard");
-    const apiUrl = "https://api.coingecko.com/api/v3/coins/";
-    const API_BASE_URL = "https://api.coingecko.com/api/v3";
+  const spinner = document.getElementById("spinner");
+  const dashboard = document.getElementById("dashboard");
 
-    // Show dashboard after 2 seconds
-    setTimeout(() => {
-        spinner.classList.add("hidden");
-        dashboard.classList.remove("hidden");
-    }, 2000);
+  setTimeout(() => {
+    spinner.classList.add("hidden");
+    dashboard.classList.remove("hidden");
+  }, 2000);
 
-    // Function to fetch and update the current price
-    async function updateCurrentPrice(cryptoId) {
-        try {
-            const response = await fetch(`${API_BASE_URL}/simple/price?ids=${cryptoId}&vs_currencies=usd`);
-            const data = await response.json();
+  const apiUrl = "https://api.coingecko.com/api/v3/coins/";
+  let chart;
 
-            const currentPrice = data[cryptoId]?.usd;
-            document.getElementById("current-price").textContent = `$${currentPrice.toFixed(2)}`;
-        } catch (error) {
-            console.error("Error fetching current price:", error);
-        }
+  async function fetchCryptoData(crypto) {
+    try {
+      const response = await fetch(`${apiUrl}${crypto}`);
+      if (!response.ok) throw new Error("Failed to fetch general data");
+
+      const data = await response.json();
+
+      document.getElementById("crypto-name").textContent = data.name;
+      document.getElementById(
+        "current-price"
+      ).textContent = `$${data.market_data.current_price.usd}`;
+      document.getElementById(
+        "market-price"
+      ).textContent = `$${data.market_data.current_price.usd}`;
+      document.getElementById(
+        "market-cap"
+      ).textContent = `$${data.market_data.market_cap.usd}`;
+
+      // Fetch historical market data for the last 7 days
+      const historyResponse = await fetch(
+        `${apiUrl}${crypto}/market_chart?vs_currency=usd&days=7`
+      );
+      if (!historyResponse.ok) throw new Error("Failed to fetch history data");
+
+      const historyData = await historyResponse.json();
+
+      const prices = historyData.prices.map((entry) => entry[1]);
+      const timestamps = historyData.prices.map((entry) => {
+        const date = new Date(entry[0]);
+        return `${date.getDate()}-${date.getMonth() + 1}`;
+      });
+
+      if (!chart) {
+        chart = new ApexCharts(document.querySelector("#chart"), {
+          chart: {
+            type: "area",
+            height: 350,
+            zoom: {
+              enabled: true,
+            },
+            toolbar: {
+              show: false, // Disable the toolbar
+            },
+          },
+          series: [
+            {
+              name: "Price (USD)",
+              data: prices,
+            },
+          ],
+          dataLabels: {
+            enabled: false,
+          },
+          stroke: {
+            curve: "smooth",
+          },
+          fill: {
+            type: "gradient",
+            gradient: {
+              shadeIntensity: 1,
+              opacityFrom: 0.7,
+              opacityTo: 0.3,
+              stops: [0, 90, 100],
+            },
+          },
+          grid: {
+            borderColor: "#444",
+            strokeDashArray: 3,
+          },
+          xaxis: {
+            categories: timestamps,
+            title: {
+              text: "Date",
+              style: {
+                color: "#ffffff",
+              },
+            },
+            labels: {
+              show: false,
+            },
+          },
+          yaxis: {
+            title: {
+              text: "Price (USD)",
+              style: {
+                color: "#ffffff",
+              },
+            },
+            labels: {
+              style: {
+                colors: "#ffffff",
+              },
+              formatter: (value) => `$${value.toFixed(2)}`,
+            },
+          },
+          tooltip: {
+            theme: "dark",
+          },
+          colors: ["#00E396"],
+        });
+        chart.render();
+      } else {
+        chart.updateSeries([
+          {
+            name: "Price (USD)",
+            data: prices,
+          },
+        ]);
+        chart.updateOptions({
+          xaxis: {
+            categories: timestamps,
+            labels: {
+              show: false,
+            },
+          },
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching crypto data:", error);
+      document.getElementById("crypto-name").textContent = "Error loading data";
     }
+  }
 
-    const fetchCryptoData = async (crypto) => {
-        try {
-            const response = await fetch(`${apiUrl}${crypto}`);
-            if (!response.ok) {
-                throw new Error("Failed to fetch data");
-            }
-            const data = await response.json();
+  fetchCryptoData("dogecoin");
 
-            const marketCapChange = `${data.market_data.market_cap_change_percentage_24h.toFixed(2)}%`;
-            const allTimeHigh = `$${data.market_data.ath.usd}`;
-            const high24hrs = `$${data.market_data.high_24h.usd}`;
-            const low24hrs = `$${data.market_data.low_24h.usd}`;
-            const positiveSentiments = `${(Math.random() * (80 - 50) + 50).toFixed(2)}%`; 
-
-            const boxes = document.querySelectorAll(".flex-wrap > div");
-            boxes[0].querySelector("h2").textContent = marketCapChange; 
-            boxes[1].querySelector("h2").textContent = allTimeHigh; 
-            boxes[2].querySelector("h2").textContent = positiveSentiments; 
-            boxes[3].querySelector("h2").textContent = high24hrs; 
-            boxes[4].querySelector("h2").textContent = low24hrs; 
-        } catch (error) {
-            console.error("Error fetching data:", error);
-            alert("Failed to load cryptocurrency data. Please try again later.");
-        }
-    };
-
-    fetchCryptoData("dogecoin");
-    updateCurrentPrice("dogecoin");
-
-    // for updating the option when changed through dropdown
-
-    const cryptoSelect = document.querySelector("select");
-    cryptoSelect.addEventListener("change", (event) => {
-        const selectedCrypto = event.target.value;
-        fetchCryptoData(selectedCrypto);
-        updateCurrentPrice(selectedCrypto);
+  document
+    .getElementById("crypto-select")
+    .addEventListener("change", (event) => {
+      const selectedCrypto = event.target.value;
+      fetchCryptoData(selectedCrypto);
     });
 });
